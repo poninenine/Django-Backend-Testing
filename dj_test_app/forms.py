@@ -1,23 +1,22 @@
 from django import forms
-from .models import Image
+from .models import *
 from django.core.exceptions import ValidationError
 
-class ImageForm(forms.ModelForm):
-    
-    title = forms.CharField(required=False)
+class AlbumForm(forms.ModelForm):
+    name = forms.CharField(required=False)
     description = forms.CharField(required=False)
     
     class Meta:
-        model = Image
-        fields = ('image', 'title', 'description')
+        model = ImageAlbum
+        fields = ('name', 'description')
     
     def clean(self):
         cleaned_data = super().clean()
-        title = cleaned_data.get("title")
+        name = cleaned_data.get("name")
         description = cleaned_data.get("description")
 
-        if title == "":
-            cleaned_data['title'] = "Default Title"
+        if name == "":
+            cleaned_data['name'] = "Default Name"
         
         if description == "":
             cleaned_data['description'] = "Default Description"
