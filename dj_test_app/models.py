@@ -22,10 +22,6 @@ class Image(models.Model):
     # default = models.BooleanField(default=False)
     album = models.ForeignKey(ImageAlbum, related_name='images', on_delete=models.CASCADE, default=0)
 
-class Person(models.Model):
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-
 @receiver(post_delete, sender=Image)
 def submission_delete(sender, instance, **kwargs):
     instance.image.delete(False)
